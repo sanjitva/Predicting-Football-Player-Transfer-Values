@@ -165,7 +165,7 @@ def clean_shooting(dataframe):
                                           [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
                                           first.iloc[a]['Age'],
                                           first.iloc[a]['Born'],
-                                          first.iloc[a]['90s▼']+second.iloc[a]['90s▼'],
+                                          first.iloc[a]['90s']+second.iloc[a]['90s'],
                                           first.iloc[a]['Gls']+second.iloc[a]['Gls'],
                                           first.iloc[a]['Total Shots']+second.iloc[a]['Total Shots'],
                                           first.iloc[a]['Total Shots on Target']+second.iloc[a]['Total Shots on Target'],
@@ -195,7 +195,7 @@ def clean_shooting(dataframe):
                                               [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
                                               first.iloc[a]['Age'],
                                               first.iloc[a]['Born'],
-                                              first.iloc[a]['90s▼']+second.iloc[a]['90s▼'],
+                                              first.iloc[a]['90s']+second.iloc[a]['90s'],
                                               first.iloc[a]['Gls']+second.iloc[a]['Gls'],
                                               first.iloc[a]['Total Shots']+second.iloc[a]['Total Shots'],
                                               first.iloc[a]['Total Shots on Target']+second.iloc[a]['Total Shots on Target'],
@@ -217,7 +217,7 @@ def clean_shooting(dataframe):
         midseason.append(double_club_combined)
     
     transferred_players = pd.DataFrame(midseason)
-    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s▼','Gls',
+    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s','Gls',
                                     'Total Shots','Total Shots on Target','Shots on Target%','Shots/90',
                                     'Shots on Target/90','Goals/Shots','Goals/Shots on Target',
                                     'Avg Shot Distance (yds)','Freekick Shots','Penalties Scored',
@@ -264,7 +264,7 @@ def clean_shot_creation(dataframe):
                                               [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
                                               first.iloc[a]['Age'],
                                               first.iloc[a]['Born'],
-                                              first.iloc[a]['90s▼']+second.iloc[a]['90s▼'],
+                                              first.iloc[a]['90s']+second.iloc[a]['90s'],
                                               first.iloc[a]['Shot-Creating Actions']+second.iloc[a]['Shot-Creating Actions'],
                                               (first.iloc[a]['Shot-Creating Actions']+second.iloc[a]['Shot-Creating Actions'])/90,
                                               first.iloc[a]['Passes Leading to Shot Attempt']+second.iloc[a]['Passes Leading to Shot Attempt'],
@@ -287,7 +287,7 @@ def clean_shot_creation(dataframe):
 
     transferred_players = pd.DataFrame(midseason)
 
-    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s▼',
+    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s',
                                    'Shot-Creating Actions','Shot-Creating Actions/90',
                                    'Passes Leading to Shot Attempt','Set-Piece Leading to Shot Attempt',
                                    'Dribbles Leading to Shot Attempt','Shots Leading to Shot Attempt',
@@ -426,6 +426,311 @@ def clean_possession(dataframe):
     final_df = final_df.reset_index(drop=True)
     return final_df        
     
+    
+
+    
+    
+
+def clean_passing(dataframe):
+
+    original = []
+    duplicate = []
+
+    for a in dataframe['Player']:
+        if a not in original:
+            original.append(a)
+        else:
+            duplicate.append(a)
+
+    mid_season_transfers = pd.DataFrame(columns = dataframe.columns)
+
+    for a in duplicate:
+        player = dataframe[dataframe['Player']==a]
+        mid_season_transfers = mid_season_transfers.append(dataframe[dataframe['Player']==a])
+
+
+    first = mid_season_transfers.iloc[::2]
+    second = mid_season_transfers.iloc[1::2]
+
+    midseason = []
+
+    for a in list(range(len(first))):
+
+        double_club_combined = pd.Series([first.iloc[a]['Rk'],
+                                                  first.iloc[a]['Player'],
+                                                  first.iloc[a]['Nation'],
+                                                  first.iloc[a]['Pos'],
+                                                  [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
+                                                  first.iloc[a]['Age'],
+                                                  first.iloc[a]['Born'],
+                                                  first.iloc[a]['90s']+second.iloc[a]['90s'],
+                                                  first.iloc[a]['Passes Completed (All pass-types)']+second.iloc[a]['Passes Completed (All pass-types)'],
+                                                  first.iloc[a]['Passes Attempted (All pass-types)']+second.iloc[a]['Passes Attempted (All pass-types)'],
+                                                  ((first.iloc[a]['Passes Completed (All pass-types)']+second.iloc[a]['Passes Completed (All pass-types)'])/(first.iloc[a]['Passes Attempted (All pass-types)']+second.iloc[a]['Passes Attempted (All pass-types)']))*100,
+                                                  first.iloc[a]['Total Distance of Completed Passes (All Pass-types)']+second.iloc[a]['Total Distance of Completed Passes (All Pass-types)'],
+                                                  first.iloc[a]['Total Distance of Completed Progressive Passes (All Pass-types)']+second.iloc[a]['Total Distance of Completed Progressive Passes (All Pass-types)'],
+                                                  first.iloc[a]['Passes Completed (Short Passes)']+second.iloc[a]['Passes Completed (Short Passes)'],
+                                                  first.iloc[a]['Passes Attempted (Short Passes)']+second.iloc[a]['Passes Attempted (Short Passes)'],
+                                                  ((first.iloc[a]['Passes Completed (Short Passes)']+second.iloc[a]['Passes Completed (Short Passes)'])/(first.iloc[a]['Passes Attempted (Short Passes)']+second.iloc[a]['Passes Attempted (Short Passes)']))*100,
+                                                  first.iloc[a]['Passes Completed (Medium Passes)']+second.iloc[a]['Passes Completed (Medium Passes)'],
+                                                  first.iloc[a]['Passes Attempted (Medium Passes)']+second.iloc[a]['Passes Attempted (Medium Passes)'],
+                                                  ((first.iloc[a]['Passes Completed (Medium Passes)']+second.iloc[a]['Passes Completed (Medium Passes)'])/(first.iloc[a]['Passes Attempted (Medium Passes)']+second.iloc[a]['Passes Attempted (Medium Passes)']))*100,
+                                                  first.iloc[a]['Passes Completed (Long Passes)']+second.iloc[a]['Passes Completed (Long Passes)'],
+                                                  first.iloc[a]['Passes Attempted (Long Passes)']+second.iloc[a]['Passes Attempted (Long Passes)'],
+                                                  ((first.iloc[a]['Passes Completed (Long Passes)']+second.iloc[a]['Passes Completed (Long Passes)'])/(first.iloc[a]['Passes Attempted (Long Passes)']+second.iloc[a]['Passes Attempted (Long Passes)']))*100,
+                                                  first.iloc[a]['Total Assists']+second.iloc[a]['Total Assists'],
+                                                  first.iloc[a]['xG Assisted']+second.iloc[a]['xG Assisted'],
+                                                  (first.iloc[a]['Total Assists']+second.iloc[a]['Total Assists'])-(first.iloc[a]['xG Assisted']+second.iloc[a]['xG Assisted']),
+                                                  first.iloc[a]['Passes that lead to a Shot']+second.iloc[a]['Passes that lead to a Shot'],
+                                                  first.iloc[a]['Completed passes that enter Final 3rd']+second.iloc[a]['Completed passes that enter Final 3rd'],
+                                                  first.iloc[a]['Completed passes that enter Penalty Box']+second.iloc[a]['Completed passes that enter Penalty Box'],
+                                                  first.iloc[a]['Completed Crosses that enter Penalty Box']+second.iloc[a]['Completed Crosses that enter Penalty Box'],
+                                                  first.iloc[a]['Total Completed Progressive Passes']+second.iloc[a]['Total Completed Progressive Passes']])                                      
+
+        midseason.append(double_club_combined)
+
+    transferred_players = pd.DataFrame(midseason)
+    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s',
+                                   'Passes Completed (All pass-types)','Passes Attempted (All pass-types)',
+                                   'Pass Completion % (All pass-types)','Total Distance of Completed Passes (All Pass-types)',
+                                   'Total Distance of Completed Progressive Passes (All Pass-types)',
+                                   'Passes Completed (Short Passes)','Passes Attempted (Short Passes)',
+                                   'Pass Completion % (Short Passes)','Passes Completed (Medium Passes)',
+                                   'Passes Attempted (Medium Passes)','Pass Completion % (Medium Passes)',
+                                   'Passes Completed (Long Passes)','Passes Attempted (Long Passes)','Pass Completion % (Long Passes)',
+                                   'Total Assists','xG Assisted','Assist minus xG Assisted','Passes that lead to a Shot',
+                                   'Completed passes that enter Final 3rd','Completed passes that enter Penalty Box',
+                                   'Completed Crosses that enter Penalty Box','Total Completed Progressive Passes']
+
+    final_df = pd.concat([dataframe, mid_season_transfers, mid_season_transfers]).drop_duplicates(keep=False)
+    final_df = pd.concat([final_df,transferred_players])
+    final_df = final_df.reset_index(drop=True)
+    return final_df    
+    
+    
+    
+    
+    
+
+def clean_defending(dataframe):
+
+    original = []
+    duplicate = []
+
+    for a in dataframe['Player']:
+        if a not in original:
+            original.append(a)
+        else:
+            duplicate.append(a)
+
+    mid_season_transfers = pd.DataFrame(columns = dataframe.columns)
+
+    for a in duplicate:
+        player = dataframe[dataframe['Player']==a]
+        mid_season_transfers = mid_season_transfers.append(dataframe[dataframe['Player']==a])
+
+
+    first = mid_season_transfers.iloc[::2]
+    second = mid_season_transfers.iloc[1::2]
+
+    midseason = []
+
+    for a in list(range(len(first))):
+        
+        if (first.iloc[a]['Times Dribbled Past + Total Tackles'] + second.iloc[a]['Times Dribbled Past + Total Tackles']) == 0 or (first.iloc[a]['Number of Pressing Actions']+second.iloc[a]['Number of Pressing Actions']) == 0:
+            
+            double_club_combined = pd.Series([first.iloc[a]['Rk'],
+                                            first.iloc[a]['Player'],
+                                            first.iloc[a]['Nation'],
+                                            first.iloc[a]['Pos'],
+                                            [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
+                                            first.iloc[a]['Age'],
+                                            first.iloc[a]['Born'],
+                                            first.iloc[a]['90s']+second.iloc[a]['90s'],
+                                            first.iloc[a]['Total Number of Players Tackled']+second.iloc[a]['Total Number of Players Tackled'],
+                                            first.iloc[a]['Total Tackles Won']+second.iloc[a]['Total Tackles Won'],
+                                            first.iloc[a]['Tackles in Defensive 3rd']+second.iloc[a]['Tackles in Defensive 3rd'],
+                                            first.iloc[a]['Tackles in Midfield 3rd']+second.iloc[a]['Tackles in Midfield 3rd'],
+                                            first.iloc[a]['Tackles in Attacking 3rd']+second.iloc[a]['Tackles in Attacking 3rd'],
+                                            first.iloc[a]['Number of Dribblers Tackled']+second.iloc[a]['Number of Dribblers Tackled'],
+                                            first.iloc[a]['Times Dribbled Past + Total Tackles']+second.iloc[a]['Times Dribbled Past + Total Tackles'],
+                                            0,
+                                            first.iloc[a]['Number of Times Dribbled Past']+second.iloc[a]['Number of Times Dribbled Past'],
+                                            first.iloc[a]['Number of Pressing Actions']+second.iloc[a]['Number of Pressing Actions'],
+                                            first.iloc[a]['Times Squad gained Possession within 5 seconds of Pressing Actions']+second.iloc[a]['Times Squad gained Possession within 5 seconds of Pressing Actions'],
+                                            0,
+                                            first.iloc[a]['Number of Presses in Defensive Third']+second.iloc[a]['Number of Presses in Defensive Third'],
+                                            first.iloc[a]['Number of Presses in Midfield Third']+second.iloc[a]['Number of Presses in Midfield Third'],
+                                            first.iloc[a]['Number of Presses in Attacking Third']+second.iloc[a]['Number of Presses in Attacking Third'],
+                                            first.iloc[a]['Total Defensive Blocks']+second.iloc[a]['Total Defensive Blocks'],
+                                            first.iloc[a]['Total Shots Blocked']+second.iloc[a]['Total Shots Blocked'],
+                                            first.iloc[a]['Goal Saving Blocks']+second.iloc[a]['Goal Saving Blocks'],
+                                            first.iloc[a]['Times blocked a Pass']+second.iloc[a]['Times blocked a Pass'],
+                                            first.iloc[a]['Total Interceptions']+second.iloc[a]['Total Interceptions'],
+                                            (first.iloc[a]['Total Number of Players Tackled']+second.iloc[a]['Total Number of Players Tackled'])+(first.iloc[a]['Total Interceptions']+second.iloc[a]['Total Interceptions']),
+                                            first.iloc[a]['Total Clearances']+second.iloc[a]['Total Clearances'],
+                                            first.iloc[a]['Mistakes leading to Opponent Shots']+second.iloc[a]['Mistakes leading to Opponent Shots']])        
+         
+        
+        else:
+            
+            double_club_combined = pd.Series([first.iloc[a]['Rk'],
+                                            first.iloc[a]['Player'],
+                                            first.iloc[a]['Nation'],
+                                            first.iloc[a]['Pos'],
+                                            [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
+                                            first.iloc[a]['Age'],
+                                            first.iloc[a]['Born'],
+                                            first.iloc[a]['90s']+second.iloc[a]['90s'],
+                                            first.iloc[a]['Total Number of Players Tackled']+second.iloc[a]['Total Number of Players Tackled'],
+                                            first.iloc[a]['Total Tackles Won']+second.iloc[a]['Total Tackles Won'],
+                                            first.iloc[a]['Tackles in Defensive 3rd']+second.iloc[a]['Tackles in Defensive 3rd'],
+                                            first.iloc[a]['Tackles in Midfield 3rd']+second.iloc[a]['Tackles in Midfield 3rd'],
+                                            first.iloc[a]['Tackles in Attacking 3rd']+second.iloc[a]['Tackles in Attacking 3rd'],
+                                            first.iloc[a]['Number of Dribblers Tackled']+second.iloc[a]['Number of Dribblers Tackled'],
+                                            first.iloc[a]['Times Dribbled Past + Total Tackles']+second.iloc[a]['Times Dribbled Past + Total Tackles'],
+                                            ((first.iloc[a]['Number of Dribblers Tackled']+second.iloc[a]['Number of Dribblers Tackled'])/(first.iloc[a]['Times Dribbled Past + Total Tackles']+second.iloc[a]['Times Dribbled Past + Total Tackles']))*100,
+                                            first.iloc[a]['Number of Times Dribbled Past']+second.iloc[a]['Number of Times Dribbled Past'],
+                                            first.iloc[a]['Number of Pressing Actions']+second.iloc[a]['Number of Pressing Actions'],
+                                            first.iloc[a]['Times Squad gained Possession within 5 seconds of Pressing Actions']+second.iloc[a]['Times Squad gained Possession within 5 seconds of Pressing Actions'],
+                                            ((first.iloc[a]['Times Squad gained Possession within 5 seconds of Pressing Actions']+second.iloc[a]['Times Squad gained Possession within 5 seconds of Pressing Actions'])/(first.iloc[a]['Number of Pressing Actions']+second.iloc[a]['Number of Pressing Actions']))*100,
+                                            first.iloc[a]['Number of Presses in Defensive Third']+second.iloc[a]['Number of Presses in Defensive Third'],
+                                            first.iloc[a]['Number of Presses in Midfield Third']+second.iloc[a]['Number of Presses in Midfield Third'],
+                                            first.iloc[a]['Number of Presses in Attacking Third']+second.iloc[a]['Number of Presses in Attacking Third'],
+                                            first.iloc[a]['Total Defensive Blocks']+second.iloc[a]['Total Defensive Blocks'],
+                                            first.iloc[a]['Total Shots Blocked']+second.iloc[a]['Total Shots Blocked'],
+                                            first.iloc[a]['Goal Saving Blocks']+second.iloc[a]['Goal Saving Blocks'],
+                                            first.iloc[a]['Times blocked a Pass']+second.iloc[a]['Times blocked a Pass'],
+                                            first.iloc[a]['Total Interceptions']+second.iloc[a]['Total Interceptions'],
+                                            (first.iloc[a]['Total Number of Players Tackled']+second.iloc[a]['Total Number of Players Tackled'])+(first.iloc[a]['Total Interceptions']+second.iloc[a]['Total Interceptions']),
+                                            first.iloc[a]['Total Clearances']+second.iloc[a]['Total Clearances'],
+                                            first.iloc[a]['Mistakes leading to Opponent Shots']+second.iloc[a]['Mistakes leading to Opponent Shots']])                                         
+                                          
+                                          
+        midseason.append(double_club_combined)
+
+    transferred_players = pd.DataFrame(midseason)
+    
+    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s',
+                                   'Total Number of Players Tackled','Total Tackles Won',
+                                   'Tackles in Defensive 3rd','Tackles in Midfield 3rd',
+                                   'Tackles in Attacking 3rd','Number of Dribblers Tackled',
+                                   'Times Dribbled Past + Total Tackles','% of Dribblers Tackled',
+                                   'Number of Times Dribbled Past','Number of Pressing Actions',
+                                   'Times Squad gained Possession within 5 seconds of Pressing Actions',
+                                   'Successful Pressure %','Number of Presses in Defensive Third',
+                                   'Number of Presses in Midfield Third','Number of Presses in Attacking Third',
+                                   'Total Defensive Blocks','Total Shots Blocked','Goal Saving Blocks',
+                                   'Times blocked a Pass','Total Interceptions',
+                                   'Total Players Tackled + Total Interceptions','Total Clearances',
+                                   'Mistakes leading to Opponent Shots']
+
+    final_df = pd.concat([dataframe, mid_season_transfers, mid_season_transfers]).drop_duplicates(keep=False)
+    final_df = pd.concat([final_df,transferred_players])
+    final_df = final_df.reset_index(drop=True)
+    return final_df
+    
+    
+    
+    
+    
+def clean_misc(dataframe):
+
+    original = []
+    duplicate = []
+
+    for a in dataframe['Player']:
+        if a not in original:
+            original.append(a)
+        else:
+            duplicate.append(a)
+
+    mid_season_transfers = pd.DataFrame(columns = dataframe.columns)
+
+    for a in duplicate:
+        player = dataframe[dataframe['Player']==a]
+        mid_season_transfers = mid_season_transfers.append(dataframe[dataframe['Player']==a])
+
+
+    first = mid_season_transfers.iloc[::2]
+    second = mid_season_transfers.iloc[1::2]
+
+    midseason = []
+
+    for a in list(range(len(first))):
+        
+        if ((first.iloc[a]['Aerial Duel Won'] + second.iloc[a]['Aerial Duel Won']) + (first.iloc[a]['Aerial Duel Lost'] + second.iloc[a]['Aerial Duel Lost'])) == 0: 
+            
+            double_club_combined = pd.Series([first.iloc[a]['Rk'],
+                                            first.iloc[a]['Player'],
+                                            first.iloc[a]['Nation'],
+                                            first.iloc[a]['Pos'],
+                                            [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
+                                            first.iloc[a]['Age'],
+                                            first.iloc[a]['Born'],
+                                            first.iloc[a]['90s']+second.iloc[a]['90s'],
+                                            first.iloc[a]['Yellow Cards']+second.iloc[a]['Yellow Cards'],
+                                            first.iloc[a]['Red Cards']+second.iloc[a]['Red Cards'],
+                                            first.iloc[a]['2nd Yellow Cards']+second.iloc[a]['2nd Yellow Cards'],
+                                            first.iloc[a]['Fouls Committed']+second.iloc[a]['Fouls Committed'],
+                                            first.iloc[a]['Fouls Drawn']+second.iloc[a]['Fouls Drawn'],
+                                            first.iloc[a]['Offsides']+second.iloc[a]['Offsides'],
+                                            first.iloc[a]['Crosses']+second.iloc[a]['Crosses'],
+                                            first.iloc[a]['Interceptions']+second.iloc[a]['Interceptions'],
+                                            first.iloc[a]['Tackles Won']+second.iloc[a]['Tackles Won'],
+                                            first.iloc[a]['Penalty Kicks Won']+second.iloc[a]['Penalty Kicks Won'],
+                                            first.iloc[a]['Penalties Conceded']+second.iloc[a]['Penalties Conceded'],
+                                            first.iloc[a]['Own Goals']+second.iloc[a]['Own Goals'],
+                                            first.iloc[a]['Total Loose Balls Recovered']+second.iloc[a]['Total Loose Balls Recovered'],
+                                            first.iloc[a]['Aerial Duel Won']+second.iloc[a]['Aerial Duel Won'],
+                                            first.iloc[a]['Aerial Duel Lost']+second.iloc[a]['Aerial Duel Lost'],
+                                            0])
+                                            
+        
+        else:
+            
+            double_club_combined = pd.Series([first.iloc[a]['Rk'],
+                                            first.iloc[a]['Player'],
+                                            first.iloc[a]['Nation'],
+                                            first.iloc[a]['Pos'],
+                                            [first.iloc[a]['Squad'],second.iloc[a]['Squad']],
+                                            first.iloc[a]['Age'],
+                                            first.iloc[a]['Born'],
+                                            first.iloc[a]['90s']+second.iloc[a]['90s'],
+                                            first.iloc[a]['Yellow Cards']+second.iloc[a]['Yellow Cards'],
+                                            first.iloc[a]['Red Cards']+second.iloc[a]['Red Cards'],
+                                            first.iloc[a]['2nd Yellow Cards']+second.iloc[a]['2nd Yellow Cards'],
+                                            first.iloc[a]['Fouls Committed']+second.iloc[a]['Fouls Committed'],
+                                            first.iloc[a]['Fouls Drawn']+second.iloc[a]['Fouls Drawn'],
+                                            first.iloc[a]['Offsides']+second.iloc[a]['Offsides'],
+                                            first.iloc[a]['Crosses']+second.iloc[a]['Crosses'],
+                                            first.iloc[a]['Interceptions']+second.iloc[a]['Interceptions'],
+                                            first.iloc[a]['Tackles Won']+second.iloc[a]['Tackles Won'],
+                                            first.iloc[a]['Penalty Kicks Won']+second.iloc[a]['Penalty Kicks Won'],
+                                            first.iloc[a]['Penalties Conceded']+second.iloc[a]['Penalties Conceded'],
+                                            first.iloc[a]['Own Goals']+second.iloc[a]['Own Goals'],
+                                            first.iloc[a]['Total Loose Balls Recovered']+second.iloc[a]['Total Loose Balls Recovered'],
+                                            first.iloc[a]['Aerial Duel Won']+second.iloc[a]['Aerial Duel Won'],
+                                            first.iloc[a]['Aerial Duel Lost']+second.iloc[a]['Aerial Duel Lost'], 
+                                            ((first.iloc[a]['Aerial Duel Won']+second.iloc[a]['Aerial Duel Won'])/((first.iloc[a]['Aerial Duel Won']+second.iloc[a]['Aerial Duel Won'])+(first.iloc[a]['Aerial Duel Lost']+second.iloc[a]['Aerial Duel Lost'])))*100])
+                                                                                     
+                                          
+                                          
+        midseason.append(double_club_combined)
+
+    transferred_players = pd.DataFrame(midseason)
+    
+    transferred_players.columns = ['Rk','Player','Nation','Pos','Squad','Age','Born','90s',
+                                   'Yellow Cards','Red Cards','2nd Yellow Cards','Fouls Committed',
+                                   'Fouls Drawn','Offsides','Crosses','Interceptions','Tackles Won',
+                                   'Penalty Kicks Won','Penalties Conceded','Own Goals',
+                                   'Total Loose Balls Recovered','Aerial Duel Won',
+                                   'Aerial Duel Lost','% Aerial Duels Won']
+
+    final_df = pd.concat([dataframe, mid_season_transfers, mid_season_transfers]).drop_duplicates(keep=False)
+    final_df = pd.concat([final_df,transferred_players])
+    final_df = final_df.reset_index(drop=True)
+    return final_df    
     
 
     
