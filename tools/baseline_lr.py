@@ -32,8 +32,6 @@ def baseline_linear_regression(df):
 
     scores_train = []
     scores_test = []
-    cross_val = []
-    RMSE_val = []
 
     for position in positions:
 
@@ -56,24 +54,18 @@ def baseline_linear_regression(df):
 
         lr.fit(X_train_scaled,y_train);
 
-        scores_train.append(lr.score(X_train_scaled,y_train))
-        scores_test.append(lr.score(X_test_scaled,y_test))
-        cross_val.append(cross_val_score(lr, X_test_scaled, y_test, cv=5, scoring="r2"))
-
-        predictions = lr.predict(X_test_scaled)
-        RMSE_val.append(round((mean_squared_error(y_test, predictions, squared=False)),2))
-
-    print(f'Attackers Train Score = {scores_train[0]}')
-    print(f'Attackers Test Score = {scores_test[0]}')
-    print(f'Attackers Cross Validation Scores = {cross_val[0]}')
-    print(f'RMSE = ${RMSE_val[0]}')
+        cross_val_train = cross_val_score(lr, X_train_scaled, y_train, scoring="neg_root_mean_squared_error")
+        cross_val_test = cross_val_score(lr, X_test_scaled, y_test, scoring="neg_root_mean_squared_error")
+        
+        scores_train.append(-(cross_val_train.mean()))
+        scores_test.append(-(cross_val_test.mean()))
+        
+        
+    print(f'Attackers Train RMSE = ${round(scores_train[0],2)}')
+    print(f'Attackers Test RMSE = ${round(scores_test[0],2)}')
     print("----------------------------------------")
-    print(f'Midfielders Train Score = {scores_train[1]}')
-    print(f'Midfielders Test Score = {scores_test[1]}')
-    print(f'Midfielders Cross Validation Scores = {cross_val[1]}')
-    print(f'RMSE = ${RMSE_val[1]}')
+    print(f'Midfielders Train RMSE = ${round(scores_train[1],2)}')
+    print(f'Midfielders Test RMSE = {round(scores_test[1],2)}')
     print("----------------------------------------")
-    print(f'Defenders Train Score = {scores_train[2]}')
-    print(f'Defenders Test Score = {scores_test[2]}')
-    print(f'Defenders Cross Validation Scores = {cross_val[2]}')
-    print(f'Defenders RMSE = ${RMSE_val[2]}')
+    print(f'Defenders Train RMSE = ${round(scores_train[2],2)}')
+    print(f'Defenders Test RMSE = ${round(scores_test[2],2)}')
