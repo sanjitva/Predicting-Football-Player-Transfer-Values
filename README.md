@@ -1,7 +1,7 @@
 # **Predicting Football Player Transfer Values**
 
 
-<img src="images/players.png" width="750">
+<img src="images/players.png" width="1000">
 
 
 Project by: **Sanjit Varma**
