@@ -222,6 +222,8 @@ As mentioned earlier, when creating a unified FBREF dataframe, players who did n
 
 - Sanjit Varma <br>
     Github: www.github.com/sanjitva<br>
+    Linkedin: www.linkedin.com/in/sanjit-varma-624ba410a/<br>
+    Email: sanjitva@gmail.com
 
 
 # Project Structure
