@@ -1,7 +1,7 @@
 # **Predicting Football Player Transfer Values**
 
 
-<img src="images/players.png" width="750">
+<img src="images/players.png" width="800">
 
 
 Project by: **Sanjit Varma**
@@ -29,13 +29,13 @@ Project by: **Sanjit Varma**
 # Business Problem
 
 
-<img src="images/sheikh.png" width="750">
+<img src="images/sheikh.png" width="800">
 
 
 With the arrival of more lucrative sponsorship deals, TV broadcasting contracts and increased investment from wealthy team owners, there has never been more money flowing into the football industry than ever before. As a result of this, the transfer market for players has seen an exponentially high level of inflation over the past decade. When Paris Saint-Germain (owned by the Qatar government) paid a shocking reported fee of [£200 million](https://www.skysports.com/football/news/11820/10972928/neymar-signs-for-paris-saint-germain-from-barcelona) in the summer of 2017, it caused a significant rise in player values across the market as a new benchmark had been set. For several years, any price over the £80 million to £90 million range (the range for the previous [three world record transfer fees](https://en.wikipedia.org/wiki/List_of_most_expensive_association_football_transfers#Highest_transfer_payments_in_association_football) paid) for a single player would have been unthinkable. 
 
 
-<img src="images/top_3.png" width="750">
+<img src="images/top_3.png" width="800">
 
 
 Today, there are 8 players whose base values are worth that price or more; with the world’s most valuable player, Kylian Mbappe worth a staggering £144 million despite only having a year left on his contract.  Seeing these high prices, one may start to wonder if they have anything to do at all with the respective players’ on-field performances. What is it about players like Kylian Mbappe, Erling Haaland and Harry Kane that make them the most valuable players in the world? Of course, they are all very good players but can their on-field performances truly be the conclusive determinants for their market value? These are questions that we hope to answer using machine learning as we see how well we can use players’ on-field performance metrics to predict their current transfer value – i.e. Players’ market value as of September 1st 2021 (the day after the Summer transfer window closed).
@@ -45,8 +45,8 @@ Today, there are 8 players whose base values are worth that price or more; with 
 
 In order to complete this project, two sources of data were identified: -
 
-•	[Transfermarkt](https://www.transfermarkt.co.uk/)- for information regarding player transfer values
-•	[FBREF](https://fbref.com/en/)- for detailed on-field performance data
+* *[FBREF](https://fbref.com/en/)- for detailed on-field performance data*
+* *[Transfermarkt](https://www.transfermarkt.co.uk/)- for information regarding player transfer values*
 
 
 ## FBREF
@@ -63,38 +63,38 @@ The reason for selecting performance data from previous years is because we want
 
 For each league, there are 11 different datasets measuring various facets of a player’s game. The datasets are named as follows:
 
-•	Standard Stats
-•	Goalkeeping
-•	Advanced Goalkeeping
-•	Shooting
-•	Passing
-•	Pass Types
-•	Goal and Shot Creation
-•	Defensive Actions
-•	Possession
-•	Miscellaneous Stats
+* Standard Stats
+* Goalkeeping
+* Advanced Goalkeeping
+* Shooting
+* Passing
+* Pass Types
+* Goal and Shot Creation
+* Defensive Actions
+* Possession
+* Miscellaneous Stats
 
 Given that Goalkeepers are judged based on entirely different metrics when compared to outfield players, a decision was made not to include goalkeepers in this project. Therefore, the two datasets related to Goalkeeper performance have been ignored.
 
 Below is an overview of the remaining datasets:
 
-[Standard Stats](https://fbref.com/en/comps/9/stats/Premier-League-Stats): As its name infers, this dataset consists of standard information about each player’s age, playing time and other basic information like goals scored and assisted, expected goals and assists, number of yellow/red cards etc.
+* [Standard Stats](https://fbref.com/en/comps/9/stats/Premier-League-Stats): As its name infers, this dataset consists of standard information about each player’s age, playing time and other basic information like goals scored and assisted, expected goals and assists, number of yellow/red cards etc.
 
-[Shooting](https://fbref.com/en/comps/9/shooting/Premier-League-Stats): Information regarding players’ shots from a quantitative as well as qualitative standpoint.
+* [Shooting](https://fbref.com/en/comps/9/shooting/Premier-League-Stats): Information regarding players’ shots from a quantitative as well as qualitative standpoint.
 
-[Passing](https://fbref.com/en/comps/9/passing/Premier-League-Stats): Information regarding the quantity and quality of passes cumulatively as well as separated into sections based on pass distance (i.e. Short, Medium and Long distances)
+* [Passing](https://fbref.com/en/comps/9/passing/Premier-League-Stats): Information regarding the quantity and quality of passes cumulatively as well as separated into sections based on pass distance (i.e. Short, Medium and Long distances)
 
-[Pass Types](https://fbref.com/en/comps/9/passing_types/Premier-League-Stats): Information regarding the type of passes attempted and their respective outcomes (i.e. aerial/medium-level/ground level height and body part used to make the pass). 
+* [Pass Types](https://fbref.com/en/comps/9/passing_types/Premier-League-Stats): Information regarding the type of passes attempted and their respective outcomes (i.e. aerial/medium-level/ground level height and body part used to make the pass). 
 
 In order to limit an already high number of features to use; this dataset was not utilized as it was decided based on domain knowledge that the body parts used by a player to make a pass or the height at which players make passes are unlikely to be a major determinant of a player’s price.
 
-[Goal and Shot Creation](https://fbref.com/en/comps/9/gca/Premier-League-Stats): Information regarding players’ actions that have led to shot taking opportunities and goals.
+* [Goal and Shot Creation](https://fbref.com/en/comps/9/gca/Premier-League-Stats): Information regarding players’ actions that have led to shot taking opportunities and goals.
 
-[Defensive Actions](https://fbref.com/en/comps/9/defense/Premier-League-Stats): Information regarding the defensive aspects of a player’s game and also information about how their defensive efforts contributed to the team winning the ball back and creating a goal-scoring opportunity for the team as a result.
+* [Defensive Actions](https://fbref.com/en/comps/9/defense/Premier-League-Stats): Information regarding the defensive aspects of a player’s game and also information about how their defensive efforts contributed to the team winning the ball back and creating a goal-scoring opportunity for the team as a result.
 
-[Possession](https://fbref.com/en/comps/9/possession/Premier-League-Stats): Information regarding the player’s ability to progress the ball and impact the proceedings of the game.
+* [Possession](https://fbref.com/en/comps/9/possession/Premier-League-Stats): Information regarding the player’s ability to progress the ball and impact the proceedings of the game.
 
-[Miscellaneous Stats](https://fbref.com/en/comps/9/misc/Premier-League-Stats): Miscellaneous on-field performance information such as number of direct red cards, second yellow cards, fouls committed/drawn, offsides etc.
+* [Miscellaneous Stats](https://fbref.com/en/comps/9/misc/Premier-League-Stats): Miscellaneous on-field performance information such as number of direct red cards, second yellow cards, fouls committed/drawn, offsides etc.
 
 
 Thankfully, the website provides an easy option to download the data as an Excel Spreadsheet-therefore making our task much more straightforward. The selected datasets described above were downloaded as Spreadsheets for each season between 2017 and 2021 (4 seasons) for every division in Europe’s most popular 5 leagues.
@@ -102,7 +102,7 @@ Thankfully, the website provides an easy option to download the data as an Excel
 
 ### Combining all 4 Seasons Data into a Single FBREF Dataframe
 
-Now that I had gathered data for 4 seasons across each of Europe’s top 5 leagues, I had to decide on my approach towards combining all the downloaded spreadsheets (there were 140 of them- i.e. 7 dataframes x 4 seasons x 5 leagues)  into a single dataframe.
+Now that I had gathered [data](/data/league_data) for 4 seasons across each of Europe’s top 5 leagues, I had to decide on my approach towards combining all the downloaded spreadsheets (there were 140 of them- i.e. 7 dataframes x 4 seasons x 5 leagues)  into a single dataframe.
 
 Finally I decided that the following would be the best approach:
 
@@ -126,32 +126,32 @@ This concluded my collection and processing of the data from fbref.com.
 ## Transfermarkt
 
 
-<img src="images/galactico.png" width="750">
+<img src="images/galactico.png" width="800">
 
 
 Transfermarkt.co.uk provides users with information about a player’s:
 
-•	Age
-•	Nationality 
-•	Height
-•	Preferred Foot 
-•	Date Joined Current Team
-•	Previous Team
-•	Date of Contract Expiry
-•	Current Market Value
+* *Age*
+* *Nationality* 
+* *Height*
+* *Preferred Foot* 
+* *Date Joined Current Team*
+* *Previous Team*
+* *Date of Contract Expiry*
+* *Current Market Value*
 
 It was decided upon looking at this information, that a player’s height, preferred foot, previous team and the date they joined the current team would not be significant determinants of a player’s value.
 
 Therefore, the information that we want to gather from this website would be:
 
-•	Player Name
-•	Current Team
-•	Domestic league in which player’s team competes
-•	Age
-•	Playing position
-•	Nationality
-•	Years Left on Contract
-•	Transfer Value (the target variable for this project)
+* *Player Name*
+* *Current Team*
+* *Domestic league in which player’s team competes*
+* *Age*
+* *Playing position*
+* *Nationality*
+* *Years Left on Contract*
+* *Transfer Value (the target variable for this project)*
 
 
 ### Creating a list of webpage links to iterate through
@@ -159,12 +159,12 @@ Therefore, the information that we want to gather from this website would be:
 To scrape the data from this website, the popular Python scraping library BeautifulSoup was used. Given that there are 98 different teams within Europe’s top 5 leagues, we would need to scrape data from 98 different pages. Given that manually creating a list of links for 98 different webpages would be a painful endeavor, [this page](https://www.transfermarkt.co.uk/wettbewerbe/europa) consisting of a tabular list of the top European Leagues was scraped using the ‘find_all()’ method to get the links of the top 5 leagues’ webpages.
 
 
-<img src="images/top_5.png" width="750">
+<img src="images/top_5.png" width="800">
 
 
 A decision was made at this point that given we already collected player performance data from previous years, we only want to include clubs that were participating in their respective nation’s top division in the previous season (2020-2021). i.e. When scraping the links to the webpages of the top 5 leagues, each webpage consisted of a list of teams participating in the top division for the (2021-2022) season. Therefore, teams relegated in the previous season were replaced by newly promoted teams in each league’s respective webpage. To tackle this issue, the subdirectory of the link: "/plus/?saison_id=2021" was removed using the split() method and was replaced with "/plus/?saison_id=2020" by simply adding it to the website domain string.
 
-Having done this, we had five different links ([Premier League](https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1/plus/?saison_id=2020), [Serie A](https://www.transfermarkt.co.uk/serie-a/startseite/wettbewerb/IT1/plus/?saison_id=2020), [La Liga](https://www.transfermarkt.co.uk/laliga/startseite/wettbewerb/ES1/plus/?saison_id=2020), [Bundesliga](https://www.transfermarkt.co.uk/bundesliga/startseite/wettbewerb/L1/plus/?saison_id=2020), [Ligue 1](https://www.transfermarkt.co.uk/ligue-1/startseite/wettbewerb/FR1/plus/?saison_id=2020) to webpages consisting of teams participating in that respective nation’s top division in the 2020-2021 season. From this point it was pretty straightforward to scrape the links to each team’s webpage across all five nations. 
+Having done this, we had five different links ([Premier League](https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1/plus/?saison_id=2020), [Serie A](https://www.transfermarkt.co.uk/serie-a/startseite/wettbewerb/IT1/plus/?saison_id=2020), [La Liga](https://www.transfermarkt.co.uk/laliga/startseite/wettbewerb/ES1/plus/?saison_id=2020), [Bundesliga](https://www.transfermarkt.co.uk/bundesliga/startseite/wettbewerb/L1/plus/?saison_id=2020), [Ligue 1](https://www.transfermarkt.co.uk/ligue-1/startseite/wettbewerb/FR1/plus/?saison_id=2020)) to webpages consisting of teams participating in that respective nation’s top division in the 2020-2021 season. From this point it was pretty straightforward to scrape the links to each team’s webpage across all five nations. 
 
 
 ### Scraping a Club’s webpage
