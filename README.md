@@ -1,7 +1,7 @@
 # **Predicting Football Player Transfer Values**
 
 
-<img src="images/players.png" width="1000">
+<img src="images/players.png" width="800">
 
 
 Project by: **Sanjit Varma**
@@ -29,13 +29,13 @@ Project by: **Sanjit Varma**
 # Business Problem
 
 
-<img src="images/sheikh.png" width="750">
+<img src="images/sheikh.png" width="800">
 
 
 With the arrival of more lucrative sponsorship deals, TV broadcasting contracts and increased investment from wealthy team owners, there has never been more money flowing into the football industry than ever before. As a result of this, the transfer market for players has seen an exponentially high level of inflation over the past decade. When Paris Saint-Germain (owned by the Qatar government) paid a shocking reported fee of [£200 million](https://www.skysports.com/football/news/11820/10972928/neymar-signs-for-paris-saint-germain-from-barcelona) in the summer of 2017, it caused a significant rise in player values across the market as a new benchmark had been set. For several years, any price over the £80 million to £90 million range (the range for the previous [three world record transfer fees](https://en.wikipedia.org/wiki/List_of_most_expensive_association_football_transfers#Highest_transfer_payments_in_association_football) paid) for a single player would have been unthinkable. 
 
 
-<img src="images/top_3.png" width="750">
+<img src="images/top_3.png" width="800">
 
 
 Today, there are 8 players whose base values are worth that price or more; with the world’s most valuable player, Kylian Mbappe worth a staggering £144 million despite only having a year left on his contract.  Seeing these high prices, one may start to wonder if they have anything to do at all with the respective players’ on-field performances. What is it about players like Kylian Mbappe, Erling Haaland and Harry Kane that make them the most valuable players in the world? Of course, they are all very good players but can their on-field performances truly be the conclusive determinants for their market value? These are questions that we hope to answer using machine learning as we see how well we can use players’ on-field performance metrics to predict their current transfer value – i.e. Players’ market value as of September 1st 2021 (the day after the Summer transfer window closed).
@@ -126,7 +126,7 @@ This concluded my collection and processing of the data from fbref.com.
 ## Transfermarkt
 
 
-<img src="images/galactico.png" width="750">
+<img src="images/galactico.png" width="800">
 
 
 Transfermarkt.co.uk provides users with information about a player’s:
@@ -159,7 +159,7 @@ Therefore, the information that we want to gather from this website would be:
 To scrape the data from this website, the popular Python scraping library BeautifulSoup was used. Given that there are 98 different teams within Europe’s top 5 leagues, we would need to scrape data from 98 different pages. Given that manually creating a list of links for 98 different webpages would be a painful endeavor, [this page](https://www.transfermarkt.co.uk/wettbewerbe/europa) consisting of a tabular list of the top European Leagues was scraped using the ‘find_all()’ method to get the links of the top 5 leagues’ webpages.
 
 
-<img src="images/top_5.png" width="750">
+<img src="images/top_5.png" width="800">
 
 
 A decision was made at this point that given we already collected player performance data from previous years, we only want to include clubs that were participating in their respective nation’s top division in the previous season (2020-2021). i.e. When scraping the links to the webpages of the top 5 leagues, each webpage consisted of a list of teams participating in the top division for the (2021-2022) season. Therefore, teams relegated in the previous season were replaced by newly promoted teams in each league’s respective webpage. To tackle this issue, the subdirectory of the link: "/plus/?saison_id=2021" was removed using the split() method and was replaced with "/plus/?saison_id=2020" by simply adding it to the website domain string.
