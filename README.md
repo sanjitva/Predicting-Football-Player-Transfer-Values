@@ -45,8 +45,8 @@ Today, there are 8 players whose base values are worth that price or more; with 
 
 In order to complete this project, two sources of data were identified: -
 
-* *[Transfermarkt](https://www.transfermarkt.co.uk/)- for information regarding player transfer values*
 * *[FBREF](https://fbref.com/en/)- for detailed on-field performance data*
+* *[Transfermarkt](https://www.transfermarkt.co.uk/)- for information regarding player transfer values*
 
 
 ## FBREF
