@@ -186,7 +186,7 @@ Finally, this concluded my task of scraping Transfermarkt.co.uk.
 
 ## Combining FBREF and Transfermarkt data ([See here for Notebook](/notebooks/cleaning/combining_all_data.ipynb))
 
-<img src="images/son.png" width="750">
+<img src="images/son.png" width="800">
 
 Having gathered the necessary data from both of my sources, the next step was to combine the FBREF and Transfermarkt data into one final dataframe. At first this seemed like it should be a straightforward task as I felt I could simply use a pd.merge() combing the two dataframes on the common “Player” column for both my Fbref and Transfermarkt datasets. However, when doing this more than half my dataset would disappear and I was left with around 600 players. I realized soon after this that the problem lies with the different formats in which players are named in each dataset. For example, players like ‘Pascal Groß’ or ‘Martin Ødegaard’ had special characters in their names in one of the datasets while their names in the other dataset were stored as ‘Pascal Gross’ or ‘Martin Odegaard’. Also, players such ‘James Ward-Prowse’ would have a ‘-‘ in their names in one dataset while it was missing in the other. 
 
@@ -197,7 +197,7 @@ Finally, I did a merge with my special character-free datasets and found that a 
 
 ## Dealing with Nan Values ([See here for Notebook](/notebooks/cleaning/filling_nan_values.ipynb))
 
-<img src="images/haaland.png" width="750">
+<img src="images/haaland.png" width="800">
 
 As mentioned earlier, when creating a unified FBREF dataframe, players who did not compete in the top 5 leagues for each of the 4 recorded seasons would have their performance metrics appear as Nan values in columns for a season they did not compete in. eg. Erling Haaland did not participate in a top 5 European League until the 2019-20 season when he transferred from Red Bull Salzburg to Borussia Dortmund. Therefore, the columns measuring 2017-18 and 2018-19 data consist of Nan values in the row featuring Haaland. When fitting data into a model, rows containing Nan values are rejected and we do not want to lose too much data because of this Nan problem. Therefore, I wrote a custom function that takes the average values for each metric from seasons where the player competed in the top 5 divisions and replaced the Nan values with these numbers. I did not want to do a simple fillna() with the average of the column as I did not want players’ Nan values to be based off other players’ performances. That’s why I wrote this function to ensure that any missing data for a player is replaced with the average of their own recorded performances. In this [no_nans dataset](data/no_nans_data.xlsx),I also removed all goalkeepers since they are outside the scope of this project- as mentioned earlier.
 
@@ -218,7 +218,7 @@ As mentioned earlier, when creating a unified FBREF dataframe, players who did n
 
 # Contributor
 
-<img src="images/sanit.png">
+<img src="images/sanjit.png">
 
 - Sanjit Varma <br>
     Github: www.github.com/sanjitva<br>
