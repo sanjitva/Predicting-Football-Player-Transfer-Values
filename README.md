@@ -100,7 +100,7 @@ In order to limit an already high number of features to use; this dataset was no
 Thankfully, the website provides an easy option to download the data as an Excel Spreadsheet-therefore making our task much more straightforward. The selected datasets described above were downloaded as Spreadsheets for each season between 2017 and 2021 (4 seasons) for every division in Europe’s most popular 5 leagues.
 
 
-### Combining all 4 Seasons Data into a Single FBREF Dataframe [See here for Notebook](/notebooks/cleaning/combining_fbref_data.ipynb)
+### Combining all 4 Seasons Data into a Single FBREF Dataframe ([See here for Notebook](/notebooks/cleaning/combining_fbref_data.ipynb))
 
 Now that I had gathered [data](/data/league_data) for 4 seasons across each of Europe’s top 5 leagues, I had to decide on my approach towards combining all the downloaded spreadsheets (there were 140 of them- i.e. 7 dataframes x 4 seasons x 5 leagues)  into a single dataframe.
 
@@ -153,7 +153,7 @@ Therefore, the information that we want to gather from this website would be:
 * *Transfer Value (the target variable for this project)*
 
 
-### Creating a list of webpage links to iterate through [See here for Notebook](/notebooks/scraping/scraping_transfermarkt.ipynb)
+### Creating a list of webpage links to iterate through ([See here for Notebook](/notebooks/scraping/scraping_transfermarkt.ipynb))
 
 To scrape the data from this website, the popular Python scraping library BeautifulSoup was used. Given that there are 98 different teams within Europe’s top 5 leagues, we would need to scrape data from 98 different pages. Given that manually creating a list of links for 98 different webpages would be a painful endeavor, [this page](https://www.transfermarkt.co.uk/wettbewerbe/europa) consisting of a tabular list of the top European Leagues was scraped using the ‘find_all()’ method to get the links of the top 5 leagues’ webpages.
 
@@ -184,7 +184,7 @@ Once I had all the contract length data that could be gathered, I used the pd.me
 Finally, this concluded my task of scraping Transfermarkt.co.uk.
 
 
-## Combining FBREF and Transfermarkt data [See here for Notebook](/notebooks/cleaning/combining_all_data.ipynb)
+## Combining FBREF and Transfermarkt data ([See here for Notebook](/notebooks/cleaning/combining_all_data.ipynb))
 
 <img src="images/son.png" width="750">
 
@@ -195,7 +195,7 @@ In order to combat this issue, I wrote a helper function called [clean_char()](/
 Finally, I did a merge with my special character-free datasets and found that a lot of the players that were missing from my previous dataset had finally made it this time around. However, there were still several important players missing because of another reason. Some players had their first and last name written (eg. Heung-min Son vs Son Heung-min) in a different order, while other players had a middle name included in one of the datasets (eg. Jose Gaya vs Jose Luis Gaya). Given the time constraints of my project, I simply decided to manually change the names of players in the dataset. There were a few hundred of them so I decided to focus on the players with the highest transfer values as I did not want to exclude them from my dataset. Finally, after manually changing about 100 names, I decided that the rest of the players all of whom were valued under £5 million were not really necessary as I already had an excessive number of players within that price range. Having completed this cleaning step, I combined all my data into a [final single dataframe](/data/final_dataset.xlsx).
 
 
-## Dealing with Nan Values [See here for Notebook](/notebooks/cleaning/filling_nan_values.ipynb)
+## Dealing with Nan Values ([See here for Notebook](/notebooks/cleaning/filling_nan_values.ipynb))
 
 <img src="images/haaland.png" width="750">
 
