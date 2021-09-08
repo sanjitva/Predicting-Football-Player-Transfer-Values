@@ -63,38 +63,38 @@ The reason for selecting performance data from previous years is because we want
 
 For each league, there are 11 different datasets measuring various facets of a player’s game. The datasets are named as follows:
 
-•	Standard Stats
-•	Goalkeeping
-•	Advanced Goalkeeping
-•	Shooting
-•	Passing
-•	Pass Types
-•	Goal and Shot Creation
-•	Defensive Actions
-•	Possession
-•	Miscellaneous Stats
+* Standard Stats
+* Goalkeeping
+* Advanced Goalkeeping
+* Shooting
+* Passing
+* Pass Types
+* Goal and Shot Creation
+* Defensive Actions
+* Possession
+* Miscellaneous Stats
 
 Given that Goalkeepers are judged based on entirely different metrics when compared to outfield players, a decision was made not to include goalkeepers in this project. Therefore, the two datasets related to Goalkeeper performance have been ignored.
 
 Below is an overview of the remaining datasets:
 
-[Standard Stats](https://fbref.com/en/comps/9/stats/Premier-League-Stats): As its name infers, this dataset consists of standard information about each player’s age, playing time and other basic information like goals scored and assisted, expected goals and assists, number of yellow/red cards etc.
+* [Standard Stats](https://fbref.com/en/comps/9/stats/Premier-League-Stats): As its name infers, this dataset consists of standard information about each player’s age, playing time and other basic information like goals scored and assisted, expected goals and assists, number of yellow/red cards etc.
 
-[Shooting](https://fbref.com/en/comps/9/shooting/Premier-League-Stats): Information regarding players’ shots from a quantitative as well as qualitative standpoint.
+* [Shooting](https://fbref.com/en/comps/9/shooting/Premier-League-Stats): Information regarding players’ shots from a quantitative as well as qualitative standpoint.
 
-[Passing](https://fbref.com/en/comps/9/passing/Premier-League-Stats): Information regarding the quantity and quality of passes cumulatively as well as separated into sections based on pass distance (i.e. Short, Medium and Long distances)
+* [Passing](https://fbref.com/en/comps/9/passing/Premier-League-Stats): Information regarding the quantity and quality of passes cumulatively as well as separated into sections based on pass distance (i.e. Short, Medium and Long distances)
 
-[Pass Types](https://fbref.com/en/comps/9/passing_types/Premier-League-Stats): Information regarding the type of passes attempted and their respective outcomes (i.e. aerial/medium-level/ground level height and body part used to make the pass). 
+* [Pass Types](https://fbref.com/en/comps/9/passing_types/Premier-League-Stats): Information regarding the type of passes attempted and their respective outcomes (i.e. aerial/medium-level/ground level height and body part used to make the pass). 
 
 In order to limit an already high number of features to use; this dataset was not utilized as it was decided based on domain knowledge that the body parts used by a player to make a pass or the height at which players make passes are unlikely to be a major determinant of a player’s price.
 
-[Goal and Shot Creation](https://fbref.com/en/comps/9/gca/Premier-League-Stats): Information regarding players’ actions that have led to shot taking opportunities and goals.
+* [Goal and Shot Creation](https://fbref.com/en/comps/9/gca/Premier-League-Stats): Information regarding players’ actions that have led to shot taking opportunities and goals.
 
-[Defensive Actions](https://fbref.com/en/comps/9/defense/Premier-League-Stats): Information regarding the defensive aspects of a player’s game and also information about how their defensive efforts contributed to the team winning the ball back and creating a goal-scoring opportunity for the team as a result.
+* [Defensive Actions](https://fbref.com/en/comps/9/defense/Premier-League-Stats): Information regarding the defensive aspects of a player’s game and also information about how their defensive efforts contributed to the team winning the ball back and creating a goal-scoring opportunity for the team as a result.
 
-[Possession](https://fbref.com/en/comps/9/possession/Premier-League-Stats): Information regarding the player’s ability to progress the ball and impact the proceedings of the game.
+* [Possession](https://fbref.com/en/comps/9/possession/Premier-League-Stats): Information regarding the player’s ability to progress the ball and impact the proceedings of the game.
 
-[Miscellaneous Stats](https://fbref.com/en/comps/9/misc/Premier-League-Stats): Miscellaneous on-field performance information such as number of direct red cards, second yellow cards, fouls committed/drawn, offsides etc.
+* [Miscellaneous Stats](https://fbref.com/en/comps/9/misc/Premier-League-Stats): Miscellaneous on-field performance information such as number of direct red cards, second yellow cards, fouls committed/drawn, offsides etc.
 
 
 Thankfully, the website provides an easy option to download the data as an Excel Spreadsheet-therefore making our task much more straightforward. The selected datasets described above were downloaded as Spreadsheets for each season between 2017 and 2021 (4 seasons) for every division in Europe’s most popular 5 leagues.
@@ -131,27 +131,27 @@ This concluded my collection and processing of the data from fbref.com.
 
 Transfermarkt.co.uk provides users with information about a player’s:
 
-•	Age
-•	Nationality 
-•	Height
-•	Preferred Foot 
-•	Date Joined Current Team
-•	Previous Team
-•	Date of Contract Expiry
-•	Current Market Value
+* *Age*
+* *Nationality* 
+* *Height*
+* *Preferred Foot* 
+* *Date Joined Current Team*
+* *Previous Team*
+* *Date of Contract Expiry*
+* *Current Market Value*
 
 It was decided upon looking at this information, that a player’s height, preferred foot, previous team and the date they joined the current team would not be significant determinants of a player’s value.
 
 Therefore, the information that we want to gather from this website would be:
 
-•	Player Name
-•	Current Team
-•	Domestic league in which player’s team competes
-•	Age
-•	Playing position
-•	Nationality
-•	Years Left on Contract
-•	Transfer Value (the target variable for this project)
+* *Player Name*
+* *Current Team*
+* *Domestic league in which player’s team competes*
+* *Age*
+* *Playing position*
+* *Nationality*
+* *Years Left on Contract*
+* *Transfer Value (the target variable for this project)*
 
 
 ### Creating a list of webpage links to iterate through
