@@ -11,7 +11,7 @@ Project by: **Sanjit Varma**
 * [Business Problem](#business-problem)
 * [Obtaining the Data and Cleaning](#obtaining-the-data-and-cleaning)
 * [Model Training and Testing](#model-training-and-testing)
-* [Conclusions](#Recommendations-and-Conclusion)
+* [Conclusions](#Conclusions)
 * [Contributor](#contributor)
 * [Project Structure](#project-structure)
 
