@@ -102,7 +102,7 @@ Thankfully, the website provides an easy option to download the data as an Excel
 
 ### Combining all 4 Seasons Data into a Single FBREF Dataframe
 
-Now that I had gathered data for 4 seasons across each of Europe’s top 5 leagues, I had to decide on my approach towards combining all the downloaded spreadsheets (there were 140 of them- i.e. 7 dataframes x 4 seasons x 5 leagues)  into a single dataframe.
+Now that I had gathered [data](/data/league_data) for 4 seasons across each of Europe’s top 5 leagues, I had to decide on my approach towards combining all the downloaded spreadsheets (there were 140 of them- i.e. 7 dataframes x 4 seasons x 5 leagues)  into a single dataframe.
 
 Finally I decided that the following would be the best approach:
 
