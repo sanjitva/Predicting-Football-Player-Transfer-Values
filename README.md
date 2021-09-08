@@ -220,10 +220,10 @@ As mentioned earlier, when creating a unified FBREF dataframe, players who did n
 
 <img src="images/sanjit.png" width="300">
 
-- Sanjit Varma <br>
-    Github: www.github.com/sanjitva<br>
-    Linkedin: www.linkedin.com/in/sanjit-varma-624ba410a/<br>
-    Email: sanjitva@gmail.com
+**Sanjit Varma** <br>
+    **Github**: www.github.com/sanjitva<br>
+    **Linkedin**: www.linkedin.com/in/sanjit-varma-624ba410a/<br>
+    **Email**: sanjitva@gmail.com
 
 
 # Project Structure
