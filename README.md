@@ -187,7 +187,20 @@ Finally, this concluded my task of scraping Transfermarkt.co.uk.
 
 ## Combining FBREF and Transfermarkt data 
 
-Having gathered the necessary data from both of my sources, the next step was to combine the FBREF and Transfermarkt data into one final dataframe.
+<img src="images/son.png" width="750">
+
+Having gathered the necessary data from both of my sources, the next step was to combine the FBREF and Transfermarkt data into one final dataframe. At first this seemed like it should be a straightforward task as I felt I could simply use a pd.merge() combing the two dataframes on the common “Player” column for both my Fbref and Transfermarkt datasets. However, when doing this more than half my dataset would disappear and I was left with around 600 players. I realized soon after this that the problem lies with the different formats in which players are named in each dataset. For example, players like ‘Pascal Groß’ or ‘Martin Ødegaard’ had special characters in their names in one of the datasets while their names in the other dataset were stored as ‘Pascal Gross’ or ‘Martin Odegaard’. Also, players such ‘James Ward-Prowse’ would have a ‘-‘ in their names in one dataset while it was missing in the other. 
+
+In order to combat this issue, I wrote a helper function called clean_char(). This function first gathers a list of all the special characters found in all players’ names. Then I added a list of characters that I want to replace each of those special character with. The function then iterates through every player’s name and replaces any special character with their corresponding ‘cleaner’ character. 
+
+Finally, I did a merge with my special character-free datasets and found that a lot of the players that were missing from my previous dataset had finally made it this time around. However, there were still several important players missing because of another reason. Some players had their first and last name written (eg. Heung-min Son vs Son Heung-min) in a different order, while other players had a middle name included in one of the datasets (eg. Jose Gaya vs Jose Luis Gaya). Given the time constraints of my project, I simply decided to manually change the names of players in the dataset. There were a few hundred of them so I decided to focus on the players with the highest transfer values as I did not want to exclude them from my dataset. Finally, after manually changing about 100 names, I decided that the rest of the players all of whom were valued under £5 million were not really necessary as I already had an excessive number of players within that price range. Having completed this cleaning step, I combined all my data into a final single dataframe.
+
+
+## Dealing with Nan Values 
+
+<img src="images/haaland.png" width="750">
+
+As mentioned earlier, when creating a unified FBREF dataframe, players who did not compete in the top 5 leagues for each of the 4 recorded seasons would have their performance metrics appear as Nan values in columns for a season they did not compete in. eg. Erling Haaland did not participate in a top 5 European League until the 2019-20 season when he transferred from Red Bull Salzburg to Borussia Dortmund. Therefore, the columns measuring 2017-18 and 2018-19 data consist of Nan values in the row featuring Haaland. When fitting data into a model, rows containing Nan values are rejected and we do not want to lose too much data because of this Nan problem. Therefore, I wrote a custom function that takes the average values for each metric from seasons where the player competed in the top 5 divisions and replaced the Nan values with these numbers. I did not want to do a simple fillna() with the average of the column as I did not want players’ Nan values to be based off other players’ performances. That’s why I wrote this function to ensure that any missing data for a player is replaced with the average of their own recorded performances.
 
 
 
