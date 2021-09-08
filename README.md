@@ -218,6 +218,8 @@ As mentioned earlier, when creating a unified FBREF dataframe, players who did n
 
 # Contributor
 
+<img src="images/sanit.png">
+
 - Sanjit Varma <br>
     Github: www.github.com/sanjitva<br>
 
