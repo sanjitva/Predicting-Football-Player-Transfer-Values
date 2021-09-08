@@ -100,7 +100,7 @@ In order to limit an already high number of features to use; this dataset was no
 Thankfully, the website provides an easy option to download the data as an Excel Spreadsheet-therefore making our task much more straightforward. The selected datasets described above were downloaded as Spreadsheets for each season between 2017 and 2021 (4 seasons) for every division in Europe’s most popular 5 leagues.
 
 
-### Combining all 4 Seasons Data into a Single FBREF Dataframe
+### Combining all 4 Seasons Data into a Single FBREF Dataframe [See here for Notebook](/notebooks/cleaning/combining_fbref_data.ipynb)
 
 Now that I had gathered [data](/data/league_data) for 4 seasons across each of Europe’s top 5 leagues, I had to decide on my approach towards combining all the downloaded spreadsheets (there were 140 of them- i.e. 7 dataframes x 4 seasons x 5 leagues)  into a single dataframe.
 
@@ -118,13 +118,12 @@ Finally I decided that the following would be the best approach:
 
 6.	An important factor to consider for the next step is that there are several players who do not feature in each of the 4 seasons we are looking at. i.e. Players may have only played 1-3 seasons for a team in the top 5 leagues over the past 4 years. Also, there are players who made their debut 1-3 seasons ago. As a result of this, we could not do a simply pd.merge(on=”Player”) like before since this method drops values where a common value is not found in the selected mutual column. Therefore, I used pd.merge() with the parameter “how=’outer’” because this makes the merge use a union of keys from both the frames. This would mean that instead of dropping rows that do not appear in other dataframes, they would simply show up as nan values for another season in which the player did not participate within the top 5 leagues.
 
-7.	Finally, after the previous step we are left with one whole dataframe that combines information from 140 different spreadsheets. This final dataframe consists of all the data downloaded from fbref with each season’s data stacked next to each other horizontally.
+7.	Finally, after the previous step we are left with one whole dataframe that combines information from 140 different spreadsheets. This [final dataframe](/data/Complete_FBREF.xlsx) consists of all the data downloaded from fbref with each season’s data stacked next to each other horizontally.
 
 This concluded my collection and processing of the data from fbref.com.
 
 
-## Transfermarkt
-
+## Transfermarkt 
 
 <img src="images/galactico.png" width="800">
 
@@ -154,7 +153,7 @@ Therefore, the information that we want to gather from this website would be:
 * *Transfer Value (the target variable for this project)*
 
 
-### Creating a list of webpage links to iterate through
+### Creating a list of webpage links to iterate through [See here for Notebook](/notebooks/scraping/scraping_transfermarkt.ipynb)
 
 To scrape the data from this website, the popular Python scraping library BeautifulSoup was used. Given that there are 98 different teams within Europe’s top 5 leagues, we would need to scrape data from 98 different pages. Given that manually creating a list of links for 98 different webpages would be a painful endeavor, [this page](https://www.transfermarkt.co.uk/wettbewerbe/europa) consisting of a tabular list of the top European Leagues was scraped using the ‘find_all()’ method to get the links of the top 5 leagues’ webpages.
 
@@ -185,22 +184,22 @@ Once I had all the contract length data that could be gathered, I used the pd.me
 Finally, this concluded my task of scraping Transfermarkt.co.uk.
 
 
-## Combining FBREF and Transfermarkt data 
+## Combining FBREF and Transfermarkt data [See here for Notebook](/notebooks/cleaning/combining_all_data.ipynb)
 
 <img src="images/son.png" width="750">
 
 Having gathered the necessary data from both of my sources, the next step was to combine the FBREF and Transfermarkt data into one final dataframe. At first this seemed like it should be a straightforward task as I felt I could simply use a pd.merge() combing the two dataframes on the common “Player” column for both my Fbref and Transfermarkt datasets. However, when doing this more than half my dataset would disappear and I was left with around 600 players. I realized soon after this that the problem lies with the different formats in which players are named in each dataset. For example, players like ‘Pascal Groß’ or ‘Martin Ødegaard’ had special characters in their names in one of the datasets while their names in the other dataset were stored as ‘Pascal Gross’ or ‘Martin Odegaard’. Also, players such ‘James Ward-Prowse’ would have a ‘-‘ in their names in one dataset while it was missing in the other. 
 
-In order to combat this issue, I wrote a helper function called clean_char(). This function first gathers a list of all the special characters found in all players’ names. Then I added a list of characters that I want to replace each of those special character with. The function then iterates through every player’s name and replaces any special character with their corresponding ‘cleaner’ character. 
+In order to combat this issue, I wrote a helper function called [clean_char()](/tools/helpers.py). This function first gathers a list of all the special characters found in all players’ names. Then I added a list of characters that I want to replace each of those special character with. The function then iterates through every player’s name and replaces any special character with their corresponding ‘cleaner’ character. 
 
-Finally, I did a merge with my special character-free datasets and found that a lot of the players that were missing from my previous dataset had finally made it this time around. However, there were still several important players missing because of another reason. Some players had their first and last name written (eg. Heung-min Son vs Son Heung-min) in a different order, while other players had a middle name included in one of the datasets (eg. Jose Gaya vs Jose Luis Gaya). Given the time constraints of my project, I simply decided to manually change the names of players in the dataset. There were a few hundred of them so I decided to focus on the players with the highest transfer values as I did not want to exclude them from my dataset. Finally, after manually changing about 100 names, I decided that the rest of the players all of whom were valued under £5 million were not really necessary as I already had an excessive number of players within that price range. Having completed this cleaning step, I combined all my data into a final single dataframe.
+Finally, I did a merge with my special character-free datasets and found that a lot of the players that were missing from my previous dataset had finally made it this time around. However, there were still several important players missing because of another reason. Some players had their first and last name written (eg. Heung-min Son vs Son Heung-min) in a different order, while other players had a middle name included in one of the datasets (eg. Jose Gaya vs Jose Luis Gaya). Given the time constraints of my project, I simply decided to manually change the names of players in the dataset. There were a few hundred of them so I decided to focus on the players with the highest transfer values as I did not want to exclude them from my dataset. Finally, after manually changing about 100 names, I decided that the rest of the players all of whom were valued under £5 million were not really necessary as I already had an excessive number of players within that price range. Having completed this cleaning step, I combined all my data into a [final single dataframe](/data/final_dataset.xlsx).
 
 
-## Dealing with Nan Values 
+## Dealing with Nan Values [See here for Notebook](/notebooks/cleaning/filling_nan_values.ipynb)
 
 <img src="images/haaland.png" width="750">
 
-As mentioned earlier, when creating a unified FBREF dataframe, players who did not compete in the top 5 leagues for each of the 4 recorded seasons would have their performance metrics appear as Nan values in columns for a season they did not compete in. eg. Erling Haaland did not participate in a top 5 European League until the 2019-20 season when he transferred from Red Bull Salzburg to Borussia Dortmund. Therefore, the columns measuring 2017-18 and 2018-19 data consist of Nan values in the row featuring Haaland. When fitting data into a model, rows containing Nan values are rejected and we do not want to lose too much data because of this Nan problem. Therefore, I wrote a custom function that takes the average values for each metric from seasons where the player competed in the top 5 divisions and replaced the Nan values with these numbers. I did not want to do a simple fillna() with the average of the column as I did not want players’ Nan values to be based off other players’ performances. That’s why I wrote this function to ensure that any missing data for a player is replaced with the average of their own recorded performances.
+As mentioned earlier, when creating a unified FBREF dataframe, players who did not compete in the top 5 leagues for each of the 4 recorded seasons would have their performance metrics appear as Nan values in columns for a season they did not compete in. eg. Erling Haaland did not participate in a top 5 European League until the 2019-20 season when he transferred from Red Bull Salzburg to Borussia Dortmund. Therefore, the columns measuring 2017-18 and 2018-19 data consist of Nan values in the row featuring Haaland. When fitting data into a model, rows containing Nan values are rejected and we do not want to lose too much data because of this Nan problem. Therefore, I wrote a custom function that takes the average values for each metric from seasons where the player competed in the top 5 divisions and replaced the Nan values with these numbers. I did not want to do a simple fillna() with the average of the column as I did not want players’ Nan values to be based off other players’ performances. That’s why I wrote this function to ensure that any missing data for a player is replaced with the average of their own recorded performances. In this [no_nans dataset](data/no_nans_data.xlsx),I also removed all goalkeepers since they are outside the scope of this project- as mentioned earlier.
 
 
 
