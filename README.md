@@ -61,7 +61,7 @@ While the website does consist of data for player performances from several leag
 
 The reason for selecting performance data from previous years is because we want to test the assumption that players’ performance data over recent years will have a significant impact on their transfer values. 
 
-For each league, there are 11 different datasets measuring various facets of a player’s game. The datasets are named as follows:
+For each league, there are 10 different datasets measuring various facets of a player’s game. The datasets are named as follows:
 
 * Standard Stats
 * Goalkeeping
