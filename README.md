@@ -168,6 +168,7 @@ Having done this, we had five different links ([Premier League](https://www.tran
 
 Having decided earlier exactly what information we wanted to gather, the find_all() method was used extensively to filter a team’s webpage ([example](https://www.transfermarkt.co.uk/olympique-lyon/startseite/verein/1041/saison_id/2020)) for specific tags and unique attributes. Through this approach, it was easy to collect all the data we wanted from the above list except for Contract information. Admittedly, at the time of scraping endeavor I did not have extensive experience working with html before. For some reason, I was unable to locate the ‘Contract’ column in the page’s source despite multiple efforts trying to find the object manually.
 
+<img src="images/lyon.png" width="800">
 
 ### Gathering Contract Length Data
 
