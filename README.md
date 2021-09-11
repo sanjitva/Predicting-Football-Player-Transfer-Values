@@ -178,6 +178,8 @@ Given my domain knowledge, I was confident that the number of years left on a pl
 
 I used the loop I made previously to gather a list of links for all 98 links and built another loop using those teams’ links by scraping the links to each player’s webpage ([example](https://www.transfermarkt.co.uk/cristiano-ronaldo/profil/spieler/8198)) within each club’s webpage. Thankfully, I was able to find the contract expiry dates for players on their respective webpages using the help of the. find_all() method. However this proved to be a problematic approach as certain players seemed to have their respective webpages oriented differently; thereby making a loop iterating through every player’s weblink halt due to an error. I made use of an Exception Handler to bypass this issue and found that out of 2643 players, my loop failed to get the contract length information for 89 players (a relatively small number of players who we can afford to drop).
 
+<img src="images/player_page.png" width="800">
+
 When scraping the contract expiry date for each player, only the expiry year was taken and subtracted from the year 2021 just so that we can see more easily how many years are left on each player’s contract.
 
 Once I had all the contract length data that could be gathered, I used the pd.merge(df1,df2,on=”Player”) method to combine it with the dataframe consisting of all the other information. 
