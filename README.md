@@ -209,7 +209,47 @@ As mentioned earlier, when creating a unified FBREF dataframe, players who did n
 
 # Model Training and Testing
 
-**will update when concluding modeling**
+
+## Pre-Processing
+
+Having collected and combined a clean dataset, I was keen to check if the dataset was prepared to meet the assumption of most models that the predictor columns have a Gaussian normal distribution. I filtered a dataset that consists of only attacking players and then looked at the distribution of certain predictor features that could be used to predict attackers’ transfer values. The visual below shows us how the features are distributed:
+
+<img src="images/histogram.png" width="800">
+
+As we can see, the features above which are likely to be important predictors of an attacking player’s value seem to all have a significant left-skew in their distribution of values. This shows that the features in our dataset would need to be transformed to produce a more Gaussian-like normal distribution before they can be used to fit and train our models. 
+
+In order to achieve the desired Gaussian-like normal distribution in our features, the PowerTransformer was used from the sklearn preprocessing library. It is a tool that transforms data to be more-Gaussian like and helps with modeling issues such as prevalence of heteroscedasticity (non-constant variance)
+
+Power transforms are a family of parametric, monotonic transformations that are applied to make data more Gaussian-like. This is useful for solving modeling issues with data that is heteroscedastic, where the variance in the data across the predictor column is not constant. The PowerTransformer used the ‘yeo-johnson’ method by default to transform the data.
+
+After making the distribution in our features normal, a Robust Scaler was used to standardize the data. The Robust Scaler is particularly useful when dealing with features where outliers are present. It removes the median and then scales the column data according to quantile range. The IQR (interquartile range) is the range between the 1st quartile (25th quantile) and the 3rd quartile (75th quantile).
+Standardization data is an important requirement for several machine learning predictors. Typically, this is achieved by removing the mean and scaling to unit variance. However, outliers in the data can often affect the sample mean / variance in an undesirable manner. In such situations, the usage of a median and an interquartile range can often give better results.
+
+
+## Modeling Workflow
+
+Given our assumption that player values are likely determined by different attributes based on their playing position, the table was divided into three dataframes: Attack, Midfield and Defence. In each notebook, it can be seen that a modeling workflow to predict transfer values was first created for the attacking players’ dataset. Once a workflow had been established, the same process of modeling steps and printing results was repeated for midfielders and defenders.
+
+For this project, 8 different models were used to help predict players’ transfer values. All of them had data pre-processed fit using the steps mentioned above. In each case, the models were first used with their default hyperparameters. The first modeling attempt in each workflow would also use all features in the dataset. The purpose of doing this was to get and understanding of what features were deemed most important by the models. Once these top 10 features were determined, a newer version of the same model was run with a dataset that only consisted of the most important features. This is because a GridSearch was conducted to identify our best parameters; and performing a GridSearch with a dataset consisting of over 500 features would be computationally very expensive and time-consuming. Hence, only the top features were chosen for our final models and after better hyperparameters were identified through a GridSearch, a new model was fit with these hyperparameters and the top features in the dataset.
+
+
+## Models Used
+
+* [Linear Regression](notebooks/modeling/linear-l1-l2.ipynb)
+
+* [Lasso (L1) Regression](notebooks/modeling/linear-l1-l2.ipynb)
+
+* [Ridge (L2) Regression](notebooks/modeling/linear-l1-l2.ipynb)
+
+* [DecisionTreeRegressor](notebooks/modeling/DecisionTree.ipynb)
+
+* [RandomForestRegressor](notebooks/modeling/RandomForest.ipynb)
+
+* [GradientBoostingRegressor](notebooks/modeling/GradientBoost.ipynb)
+
+* [AdaBoostRegressor](notebooks/modeling/AdaBoost.ipynb)
+
+* [Support Vector Regressor](notebooks/modeling/SupportVectorRegressor.ipynb)
 
 
 
