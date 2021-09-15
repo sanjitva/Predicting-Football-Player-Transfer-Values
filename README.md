@@ -187,6 +187,10 @@ Once I had all the contract length data that could be gathered, I used the pd.me
 Finally, this concluded my task of scraping Transfermarkt.co.uk.
 
 
+<img src="images/most_valuable.png" width="800">
+
+
+
 ## Combining FBREF and Transfermarkt data ([See here for Notebook](/notebooks/cleaning/combining_all_data.ipynb))
 
 <img src="images/son.png" width="800">
@@ -198,11 +202,15 @@ In order to combat this issue, I wrote a helper function called [clean_char()](/
 Finally, I did a merge with my special character-free datasets and found that a lot of the players that were missing from my previous dataset had finally made it this time around. However, there were still several important players missing because of another reason. Some players had their first and last name written (eg. Heung-min Son vs Son Heung-min) in a different order, while other players had a middle name included in one of the datasets (eg. Jose Gaya vs Jose Luis Gaya). Given the time constraints of my project, I simply decided to manually change the names of players in the dataset. There were a few hundred of them so I decided to focus on the players with the highest transfer values as I did not want to exclude them from my dataset. Finally, after manually changing about 100 names, I decided that the rest of the players all of whom were valued under £5 million were not really necessary as I already had an excessive number of players within that price range. Having completed this cleaning step, I combined all my data into a [final single dataframe](/data/final_dataset.xlsx).
 
 
+<img src="images/league_player_count.png" width="800">
+
+
+
 ## Dealing with Nan Values ([See here for Notebook](/notebooks/cleaning/filling_nan_values.ipynb))
 
 <img src="images/haaland.png" width="800">
 
-As mentioned earlier, when creating a unified FBREF dataframe, players who did not compete in the top 5 leagues for each of the 4 recorded seasons would have their performance metrics appear as Nan values in columns for a season they did not compete in. eg. Erling Haaland did not participate in a top 5 European League until the 2019-20 season when he transferred from Red Bull Salzburg to Borussia Dortmund. Therefore, the columns measuring 2017-18 and 2018-19 data consist of Nan values in the row featuring Haaland. When fitting data into a model, rows containing Nan values are rejected and we do not want to lose too much data because of this Nan problem. Therefore, I wrote a custom function that takes the average values for each metric from seasons where the player competed in the top 5 divisions and replaced the Nan values with these numbers. I did not want to do a simple fillna() with the average of the column as I did not want players’ Nan values to be based off other players’ performances. That’s why I wrote this function to ensure that any missing data for a player is replaced with the average of their own recorded performances. In this [no_nans dataset](data/no_nans_data.xlsx),I also removed all goalkeepers since they are outside the scope of this project- as mentioned earlier.
+As mentioned earlier, when creating a unified FBREF dataframe, players who did not compete in the top 5 leagues for each of the 4 recorded seasons would have their performance metrics appear as Nan values in columns for a season they did not compete in. eg. Erling Haaland did not participate in a top 5 European League until the 2019-20 season when he transferred from Red Bull Salzburg to Borussia Dortmund. Therefore, the columns measuring 2017-18 and 2018-19 data consist of Nan values in the row featuring Haaland. When fitting data into a model, rows containing Nan values are rejected and we do not want to lose too much data because of this Nan problem. Therefore, I wrote a custom function that takes the average values for each metric from seasons where the player competed in the top 5 divisions and replaced the Nan values with these numbers. I did not want to do a simple fillna() with the average of the column as I did not want players’ Nan values to be based off other players’ performances. That’s why I wrote this function to ensure that any missing data for a player is replaced with the average of their own recorded performances. In this [no_nans dataset](data/no_nans_data.xlsx),I also removed all goalkeepers since there aren't enough rows of goalkeeper data in our dataset to train a machine learning model. Therefore, goalkeepers are not within the scope of this project.
 
 
 
@@ -230,7 +238,23 @@ Standardization data is an important requirement for several machine learning pr
 
 Given our assumption that player values are likely determined by different attributes based on their playing position, the table was divided into three dataframes: Attack, Midfield and Defence. In each notebook, it can be seen that a modeling workflow to predict transfer values was first created for the attacking players’ dataset. Once a workflow had been established, the same process of modeling steps and printing results was repeated for midfielders and defenders.
 
-For this project, 8 different models were used to help predict players’ transfer values. All of them had data pre-processed fit using the steps mentioned above. In each case, the models were first used with their default hyperparameters. The first modeling attempt in each workflow would also use all features in the dataset. The purpose of doing this was to get and understanding of what features were deemed most important by the models. Once these top 10 features were determined, a newer version of the same model was run with a dataset that only consisted of the most important features. This is because a GridSearch was conducted to identify our best parameters; and performing a GridSearch with a dataset consisting of over 500 features would be computationally very expensive and time-consuming. Hence, only the top features were chosen for our final models and after better hyperparameters were identified through a GridSearch, a new model was fit with these hyperparameters and the top features in the dataset.
+
+<img src="images/position_count.png" width="800">
+
+The visuals below show some of the top correlated features with player transfer values for each of our three main positions.
+
+<img src="images/att_corr.png" width="800">
+
+<img src="images/mid_corr.png" width="800">
+
+<img src="images/def_corr.png" width="800">
+
+
+Correlation was not used as a means for indentifying the top features for every model (except linear regression). Given that each model had a different approach to training the data; the data was fit into an initial rendition of the model and then its most important features were identified with the 'feature_importances_' attribute. The above visuals are just to provide us with an understanding of what features have the highest correlation with player values from each position.
+
+
+For this project, 8 different models were used to help predict players’ transfer values. All of them had data pre-processed fit using the steps mentioned above. In each case, the models were first used with their default hyperparameters. The first modeling attempt in each workflow would also use all features in the dataset. The purpose of doing this was to get and understanding of what features were deemed most important by the models. Once these top 10 features were determined, a newer version of the same model was run with a dataset that only consisted of the most important features. This is because a GridSearch was conducted to identify our best parameters; and performing a GridSearch with a dataset consisting of over 500 features would be computationally very expensive and time-consuming. Hence, only the top features were chosen for our final models and after better hyperparameters were identified through a GridSearch, a new model was fit with these hyperparameters and the top features in the dataset. After this the mean cross_val_scores were calculated with ‘neg_root_mean_squared_error’ as the scoring metric. Ideally, we want an RMSE value as close to 0 as possible. 
+
 
 
 ## Models Used
@@ -241,22 +265,57 @@ For this project, 8 different models were used to help predict players’ transf
 
 * [Ridge (L2) Regression](notebooks/modeling/linear-l1-l2.ipynb)
 
+<img src="images/lr_result.png" width="800">
+
 * [DecisionTreeRegressor](notebooks/modeling/DecisionTree.ipynb)
+
+<img src="images/dt_result.png" width="800">
 
 * [RandomForestRegressor](notebooks/modeling/RandomForest.ipynb)
 
+<img src="images/rf_result.png" width="800">
+
 * [GradientBoostingRegressor](notebooks/modeling/GradientBoost.ipynb)
+
+<img src="images/gb_result.png" width="800">
 
 * [AdaBoostRegressor](notebooks/modeling/AdaBoost.ipynb)
 
+<img src="images/ada_result.png" width="800">
+
 * [Support Vector Regressor](notebooks/modeling/SupportVectorRegressor.ipynb)
+
+<img src="images/svr_result.png" width="800">
 
 
 
 # Conclusions
 
-**will update when concluding modeling**
+Having concluded modeling for this project, the results for each model were compared to identify which model worked best to predict player transfer values with the lowest Root Mean Squared Error for each position.
 
+### Best models for each position
+
+<img src="images/model_attack.png" width="800">
+
+<img src="images/model_midfield.png" width="800">
+
+<img src="images/model_defence.png" width="800">
+
+### Identifying which positions we predicted best
+
+<img src="images/best_model_results.png" width="800">
+
+Our models have an error of around £9 million - £12 million with our models able to predict Defenders' prices best, given it has the lowest RMSE score. While this may be acceptable for larger clubs looking to purchase the best players (who are worth 10s of millions), the findings of this project tell us that our models are not good enough for mid-tier and lower value players who are worth £20 million or less. Therefore, we may conclude that data of just a player's on field performance may not be enough to accurately predict player transfer values. More data may be required to achieve this goal.
+
+<img src="images/fut_stadia.png" width="300">
+
+Given the short time frame for this project, there are several limitations that will need to be worked on.
+
+First, is the assumption that all top 5 leagues in the competition are equally competitive (which is not true); also players in better teams tend to have better stats. Therefore, we need to find a better way to factor this into our data. Perhaps a coefficient score could be identified based on strength of teammates and opposition in each match. This would be time-consuming but is possible as there is data available.
+
+Another assumption fallacy in this project is that in the modern game, player positions are not divided into 3 categories, There are a diverse set of player roles within each position so the data will need to be divided to factor this in. i.e. attacking/defensive midfielders, wingers/strikers, centerbacks/fullbacks etc. 
+
+Given our conclusion that on-field performance is not the only predictor of player value, more data needs to be gathered such as (a player's int'l caps, number of Google searches with their name, overall career history, trophies won etc.)
 
 
 # Contributor
@@ -271,15 +330,22 @@ For this project, 8 different models were used to help predict players’ transf
 
 # Project Structure
 
-**needs to be updated when repo is finalized**
+
 ```
-├── final_notebook.ipynb
+├── eda.ipynb
 ├── README.md
-├── presentation_slides.pdf
+├── slide_deck.pdf
 ├── data
 ├── images
+├── notebooks
+|   ├── cleaning
+|   ├── modeling
+|   └── scraping
+| 
 └── tools
     ├── __init__.py
+    └── fbref.py
+    └── feature_eng.py
     └── helpers.py
 ```
 
