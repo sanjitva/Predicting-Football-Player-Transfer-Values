@@ -253,11 +253,10 @@ The visuals below show some of the top correlated features with player transfer 
 Correlation was not used as a means for indentifying the top features for every model (except linear regression). Given that each model had a different approach to training the data; the data was fit into an initial rendition of the model and then its most important features were identified with the 'feature_importances_' attribute. The above visuals are just to provide us with an understanding of what features have the highest correlation with player values from each position.
 
 
+## Models Used
+
 For this project, 8 different models were used to help predict players’ transfer values. All of them had data pre-processed fit using the steps mentioned above. In each case, the models were first used with their default hyperparameters. The first modeling attempt in each workflow would also use all features in the dataset. The purpose of doing this was to get and understanding of what features were deemed most important by the models. Once these top 10 features were determined, a newer version of the same model was run with a dataset that only consisted of the most important features. This is because a GridSearch was conducted to identify our best parameters; and performing a GridSearch with a dataset consisting of over 500 features would be computationally very expensive and time-consuming. Hence, only the top features were chosen for our final models and after better hyperparameters were identified through a GridSearch, a new model was fit with these hyperparameters and the top features in the dataset. After this the mean cross_val_scores were calculated with ‘neg_root_mean_squared_error’ as the scoring metric. Ideally, we want an RMSE value as close to 0 as possible. 
 
-
-
-## Models Used
 
 * [Linear Regression](notebooks/modeling/linear-l1-l2.ipynb)
 
