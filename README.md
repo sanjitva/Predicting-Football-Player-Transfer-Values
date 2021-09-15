@@ -245,10 +245,15 @@ The visuals below show some of the top correlated features with player transfer 
 
 <img src="images/att_corr.png" width="800">
 
+Unsurprisingly, a players expected goals & assists, activity in the opposition penalty box and chance creating abilities are top predictors.
+
 <img src="images/mid_corr.png" width="800">
+
+In the case of midfielders as well, it isn’t surprising to see that they are judged on their ability to dictate the tempo of the game and positive facilitate the ball progression of the team.
 
 <img src="images/def_corr.png" width="800">
 
+In the case of defenders, it is interesting to see that the number of tackles/interceptions made are not among the top predictors. This may be because top defenders play in stronger teams that possess the ball for longer periods, therefore they do not need to make as many tackles/interceptions.
 
 Correlation was not used as a means for indentifying the top features for every model (except linear regression). Given that each model had a different approach to training the data; the data was fit into an initial rendition of the model and then its most important features were identified with the 'feature_importances_' attribute. The above visuals are just to provide us with an understanding of what features have the highest correlation with player values from each position.
 
