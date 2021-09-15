@@ -311,7 +311,7 @@ Having concluded modeling for this project, the results for each model were comp
 
 Our models have an error of around £9 million - £12 million with our models able to predict Defenders' prices best, given it has the lowest RMSE score. While this may be acceptable for larger clubs looking to purchase the best players (who are worth 10s of millions), the findings of this project tell us that our models are not good enough for mid-tier and lower value players who are worth £20 million or less. Therefore, we may conclude that data of just a player's on field performance may not be enough to accurately predict player transfer values. More data may be required to achieve this goal.
 
-<img src="images/fut_stadia.png" width="300">
+<img src="images/fut_stadia.png" width="800">
 
 Given the short time frame for this project, there are several limitations that will need to be worked on.
 
