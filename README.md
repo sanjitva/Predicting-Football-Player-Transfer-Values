@@ -301,9 +301,15 @@ Having concluded modeling for this project, the results for each model were comp
 
 <img src="images/model_attack.png" width="800">
 
+The Ridge (L2) Regression produced the lowest Root Mean Squared Error in its predictions for Attacking players.
+
 <img src="images/model_midfield.png" width="800">
 
+In the case of Midfielders, the Random Forest Regressor produced the lowest Root Mean Squared Error.
+
 <img src="images/model_defence.png" width="800">
+
+And for Defenders, the three ensemble models (Random Forest, Gradient Boost & Ada Boost) produced similar results. But among them, the Random Forest Regressor was the model producing the lowest Root Mean Squared Errors.
 
 ### Identifying which positions we predicted best
 
