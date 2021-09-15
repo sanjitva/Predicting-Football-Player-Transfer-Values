@@ -245,7 +245,7 @@ The visuals below show some of the top correlated features with player transfer 
 
 <img src="images/att_corr.png" width="800">
 
-Unsurprisingly, a players expected goals & assists, activity in the opposition penalty box and chance creating abilities are top predictors.
+Unsurprisingly for attackers, a player's expected goals & assists, activity in the opposition penalty box and chance creating abilities are top predictors.
 
 <img src="images/mid_corr.png" width="800">
 
