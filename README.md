@@ -224,7 +224,7 @@ Having collected and combined a clean dataset, I was keen to check if the datase
 
 <img src="images/histogram.png" width="800">
 
-As we can see, the features above which are likely to be important predictors of an attacking player’s value seem to all have a significant left-skew in their distribution of values. This shows that the features in our dataset would need to be transformed to produce a more Gaussian-like normal distribution before they can be used to fit and train our models. 
+As we can see, the features above which are likely to be important predictors of an attacking player’s value seem to all have a significant skew in their distribution of values. This shows that the features in our dataset would need to be transformed to produce a more Gaussian-like normal distribution before they can be used to fit and train our models. 
 
 In order to achieve the desired Gaussian-like normal distribution in our features, the PowerTransformer was used from the sklearn preprocessing library. It is a tool that transforms data to be more-Gaussian like and helps with modeling issues such as prevalence of heteroscedasticity (non-constant variance)
 
