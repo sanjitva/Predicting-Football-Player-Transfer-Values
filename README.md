@@ -263,27 +263,27 @@ Correlation was not used as a means for indentifying the top features for every 
 For this project, 8 different models were used to help predict players’ transfer values. All of them had data pre-processed fit using the steps mentioned above. In each case, the models were first used with their default hyperparameters. The first modeling attempt in each workflow would also use all features in the dataset. The purpose of doing this was to get and understanding of what features were deemed most important by the models. Once these top 10 features were determined, a newer version of the same model was run with a dataset that only consisted of the most important features. This is because a GridSearch was conducted to identify our best parameters; and performing a GridSearch with a dataset consisting of over 500 features would be computationally very expensive and time-consuming. Hence, only the top features were chosen for our final models and after better hyperparameters were identified through a GridSearch, a new model was fit with these hyperparameters and the top features in the dataset. After this the mean cross_val_scores were calculated with ‘neg_root_mean_squared_error’ as the scoring metric. Ideally, we want an RMSE value as close to 0 as possible. 
 
 
-* [Linear Regression, Lasso(L1) Regression & Ridge(L2) Regression](notebooks/modeling/linear-l1-l2.ipynb)
+* [Linear Regression, Lasso(L1) Regression & Ridge(L2) Regression (See here for Notebook)](notebooks/modeling/linear-l1-l2.ipynb)
 
 <img src="images/lr_result.png" width="800">
 
-* [DecisionTreeRegressor](notebooks/modeling/DecisionTree.ipynb)
+* [DecisionTreeRegressor (See here for Notebook)](notebooks/modeling/DecisionTree.ipynb)
 
 <img src="images/dt_result.png" width="800">
 
-* [RandomForestRegressor](notebooks/modeling/RandomForest.ipynb)
+* [RandomForestRegressor (See here for Notebook)](notebooks/modeling/RandomForest.ipynb)
 
 <img src="images/rf_result.png" width="800">
 
-* [GradientBoostingRegressor](notebooks/modeling/GradientBoost.ipynb)
+* [GradientBoostingRegressor (See here for Notebook)](notebooks/modeling/GradientBoost.ipynb)
 
 <img src="images/gb_result.png" width="800">
 
-* [AdaBoostRegressor](notebooks/modeling/AdaBoost.ipynb)
+* [AdaBoostRegressor (See here for Notebook)](notebooks/modeling/AdaBoost.ipynb)
 
 <img src="images/ada_result.png" width="800">
 
-* [Support Vector Regressor](notebooks/modeling/SupportVectorRegressor.ipynb)
+* [Support Vector Regressor (See here for Notebook)](notebooks/modeling/SupportVectorRegressor.ipynb)
 
 <img src="images/svr_result.png" width="800">
 
